@@ -1,0 +1,30 @@
+/*
+D. Ongaro and J. Ousterhout, In Search of an Understandable Consensus Algorithm (Extended Version)[Online]. Available: https://raft.github.io/raft.pdf
+?
+*/
+
+service Raft {
+  rpc AppendEntries (AppendEntriesRequest) returns (AppendEntriesReply) {}
+  rpc RequestVote (RequestVoteRequest) returns (RequestVoteReply) {}
+}
+
+message AppendEntriesRequest {
+  int32 term = 1;
+  int32 leaderId = 2;
+  int32 prevLogIndex = 3;
+  int32 prevLogTerm = 4;
+  repeated bytes entries = 5;
+  int32 leaderCommit = 6;
+}
+
+message AppendEntriesReply {
+}
+
+message RequestVoteRequest {
+  int32 term = 1;
+  int32 candidateid = 2;
+  int32 lastLogIndex = 3;
+  int32 lastLogTerm = 4;
+}
+
+message RequestVoteReply {}
