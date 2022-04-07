@@ -1,13 +1,9 @@
 package node
 
-type Server struct {
-  ID int
-  host string
-  port int
-}
+import "github.com/octopipe/raft/pkg/server"
 
 type Node struct {
-  Server
+  server.Server
   currentTerm int
   votedFor int
   log [][]byte
@@ -15,9 +11,5 @@ type Node struct {
   lastApplied int
 }
 
-type Leader struct {
-  Node
-  nextIndex []int
-  matchIndex []int
-}
+func NewNode() {}
 
