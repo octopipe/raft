@@ -11,5 +11,6 @@ type Node struct {
   lastApplied int
 }
 
-func NewNode() {}
+func NewNode() {
+}
 

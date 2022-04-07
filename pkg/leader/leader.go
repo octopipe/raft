@@ -9,4 +9,5 @@ type Leader struct {
 }
 
 func NewLeader() {
+
 }
