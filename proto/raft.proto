@@ -9,22 +9,22 @@ service Raft {
 }
 
 message AppendEntriesRequest {
-  int32 term = 1;
-  int32 leaderId = 2;
-  int32 prevLogIndex = 3;
-  int32 prevLogTerm = 4;
+  int64 term = 1;
+  bytes leaderId = 2;
+  int64 prevLogIndex = 3;
+  int64 prevLogTerm = 4;
   repeated bytes entries = 5;
-  int32 leaderCommit = 6;
+  int64 leaderCommit = 6;
 }
 
 message AppendEntriesReply {
 }
 
 message RequestVoteRequest {
-  int32 term = 1;
-  int32 candidateid = 2;
-  int32 lastLogIndex = 3;
-  int32 lastLogTerm = 4;
+  int64 term = 1;
+  bytes candidateid = 2;
+  int64 lastLogIndex = 3;
+  int64 lastLogTerm = 4;
 }
 
 message RequestVoteReply {}
