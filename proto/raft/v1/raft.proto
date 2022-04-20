@@ -2,6 +2,10 @@
 D. Ongaro and J. Ousterhout, In Search of an Understandable Consensus Algorithm (Extended Version)[Online]. Available: https://raft.github.io/raft.pdf
 ?
 */
+syntax = "proto3";
+package v1;
+
+option go_package = "./";
 
 service Raft {
   rpc AppendEntries (AppendEntriesRequest) returns (AppendEntriesReply) {}
