@@ -1,0 +1,17 @@
+syntax = "proto3";
+package v1;
+
+option go_package = "./v1";
+
+service Network {
+  rpc Join (JoinRequest) returns (JoinReply) {}
+}
+
+message JoinRequest {
+  bytes host = 1;
+}
+
+message JoinReply {
+  repeated bytes hosts = 1;
+}
+
