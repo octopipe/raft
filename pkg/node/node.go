@@ -43,7 +43,7 @@ type Node struct {
 }
 
 func NewNode(host string, port int, target string) (Node, error) {
-	r := rand.Intn(10)
+	r := rand.Intn(1000)
 
 	n := Node{
 		ID:      uuid.New(),
@@ -176,23 +176,25 @@ func (n *Node) startHeartbeat() {
 
 	// TODO: If election timeout elapses: start new election
 
-	select {
-	case <-t.C:
-		switch n.status {
-		case Follower:
-			n.status = Candidate
-			n.doCandidateRules()
-			break
-		case Candidate:
-			n.doCandidateRules()
-			break
-		case Leader:
-			n.doLeaderRules()
-			break
-		default:
-			log.Fatalln("Unrecognized status!")
-		}
+	for {
+		select {
+		case <-t.C:
+			switch n.status {
+			case Follower:
+				n.status = Candidate
+				n.doCandidateRules()
+				break
+			case Candidate:
+				n.doCandidateRules()
+				break
+			case Leader:
+				n.doLeaderRules()
+				break
+			default:
+				log.Fatalln("Unrecognized status!")
+			}
 
+		}
 	}
 }
 
@@ -247,7 +249,9 @@ func (n Node) AppendEntries(ctx context.Context, request *raftPb.AppendEntriesRe
 	}
 
 	// If AppendEntries RPC received from new leader: convert to follower
-	n.setState(Follower)
+	if n.status != Leader {
+		n.setState(Follower)
+	}
 
 	return reply, nil
 }
